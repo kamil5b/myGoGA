@@ -95,7 +95,7 @@ func (c *Chromosome) Decode() {
 	x := float32(0)
 	y := float32(0)
 
-	for i := 0; i < 5; i++ {
+	for i := 1; i < 5; i++ {
 		x += float32(c.genes[i]) * float32(math.Pow(10, float64(-i)))
 		y += float32(c.genes[i+5]) * float32(math.Pow(10, float64(-i)))
 	}
@@ -136,7 +136,6 @@ func CreateChromosome(x, y float32, f func(float32, float32) float32) Chromosome
 
 func CreateGeneration(totalPopulation, matingProcess int, mutationChance, Xmax, Xmin, Ymax, Ymin float32, f func(float32, float32) float32) Generation {
 	var gen Generation
-
 	gen.matingProcess = matingProcess
 	gen.mutationChance = mutationChance
 	gen.Xmax, gen.Xmin, gen.Ymax, gen.Ymin = Xmax, Xmin, Ymax, Ymin
@@ -225,6 +224,11 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	//each sets are described in the spreadsheet that i made
 	//each mating will had 16 child and we pick the best set (bruteforcing)
 	child.fitnessFormula = parent1.fitnessFormula
+	if parent1.fitness >= parent2.fitness {
+		bestChild = parent1
+	} else {
+		bestChild = parent2
+	}
 	//SET 1
 	for i := 0; i < 5; i++ {
 		//C X = P1 X
@@ -234,9 +238,12 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
-		bestChild = child
+		if bestChild.fitness <= child.fitness {
+			bestChild = child
+		}
 	}
 
 	//SET 2
@@ -248,6 +255,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -264,6 +272,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -280,6 +289,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -302,6 +312,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -324,6 +335,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -346,6 +358,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -368,6 +381,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -390,6 +404,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -412,6 +427,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -434,6 +450,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -456,6 +473,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -484,6 +502,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -512,6 +531,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -540,6 +560,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -568,6 +589,7 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 	}
 	child.Mutate(mutationChance)
 	child.Decode()
+
 	if child.x >= Xmin && child.x <= Xmax && child.y >= Ymin && child.y <= Ymax {
 		child.Fitnessing()
 		if bestChild.fitness <= child.fitness {
@@ -575,16 +597,24 @@ func MatingChromosome(parent1, parent2 Chromosome, Xmax, Xmin, Ymax, Ymin, mutat
 		}
 	}
 
+	//bestChild.ViewChromosome()
+	//fmt.Println()
 	return bestChild
 }
 
-func (g Generation) ReGeneration() {
+func (g *Generation) ReGeneration() {
 	matingPool := g.population
 	for i := 0; i < g.matingProcess; i++ {
 		parent1 := SelectParent(matingPool)
 		parent2 := SelectParent(matingPool)
-
+		/*
+			fmt.Println("\np1 :")
+			parent1.ViewChromosome()
+			fmt.Println("\np2 :")
+			parent2.ViewChromosome()*/
 		child := MatingChromosome(parent1, parent2, g.Xmax, g.Xmin, g.Ymax, g.Ymin, g.mutationChance)
+		//fmt.Println("\nc :")
+		//child.ViewChromosome()
 
 		matingPool = append(matingPool, child)
 
@@ -598,6 +628,7 @@ func (g Generation) ReGeneration() {
 func GenerateGenerations(evolutions, totalPopulation, matingProcess int, mutationChance, Xmax, Xmin, Ymax, Ymin float32, f func(float32, float32) float32) Generation {
 	gen := CreateGeneration(totalPopulation, matingProcess, mutationChance, Xmax, Xmin, Ymax, Ymin, f)
 	for i := 0; i < evolutions; i++ {
+		//gen.bestChromosome.ViewChromosome()
 		gen.ReGeneration()
 	}
 	return gen
@@ -628,7 +659,7 @@ main.go sample :
 
 package main
 
-import "myGoGA"
+import "github.com/kamil5b/myGoGA"
 
 func main() {
 
@@ -636,7 +667,7 @@ func main() {
 		return (x * y) / (x + y)
 	}
 
-	gen := basicGeneticAlgorithm.GenerateGenerations(10, 10, 10, 2.5, 9, -9, 9, -9, equation)
+	gen := myGoGA.GenerateGenerations(10, 10, 10, 2.5, 9, -9, 9, -9, equation)
 	gen.ViewGeneration()
 
 }
