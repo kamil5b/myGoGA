@@ -145,8 +145,10 @@ func CreateGeneration(totalPopulation, matingProcess int, mutationChance, Xmax, 
 
 	for i := 0; i < totalPopulation; i++ {
 		//CREATE RANDOM X and Y with range Xmin to Xmax and Ymin to Ymax
-		x := Xmin + rand.Float32()*(Xmax-Xmin)
-		y := Ymin + rand.Float32()*(Ymax-Ymin)
+		temp := float64(Xmin) + rand.Float64()*float64((Xmax-Xmin))
+		x := float32(math.Round(temp*1000) / 1000)
+		temp = float64(Ymin) + rand.Float64()*float64((Ymax-Ymin))
+		y := float32(math.Round(temp*1000) / 1000)
 		//CREATE THE CHROMOSOME
 		gen.population[i] = CreateChromosome(x, y, f)
 	}
@@ -653,23 +655,3 @@ func (g Generation) ViewGeneration() {
 	fmt.Println("Best Chromosome :")
 	g.bestChromosome.ViewChromosome()
 }
-
-/*
-main.go sample :
-
-package main
-
-import "github.com/kamil5b/myGoGA"
-
-func main() {
-
-	equation := func(x, y float32) float32 {
-		return (x * y) / (x + y)
-	}
-
-	gen := myGoGA.GenerateGenerations(10, 10, 10, 2.5, 9, -9, 9, -9, equation)
-	gen.ViewGeneration()
-
-}
-
-*/
